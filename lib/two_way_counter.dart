@@ -24,9 +24,8 @@ class _TwoWayCounterState extends State<TwoWayCounter> {
       _saving = false;
     });
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Saved')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Saved')));
   }
 
   @override
@@ -40,10 +39,10 @@ class _TwoWayCounterState extends State<TwoWayCounter> {
               onPressed: _count == 0
                   ? null
                   : () {
-                setState(() {
-                  _count--;
-                });
-              },
+                      setState(() {
+                        _count--;
+                      });
+                    },
               child: const Text('−'),
             ),
             Padding(
@@ -65,12 +64,10 @@ class _TwoWayCounterState extends State<TwoWayCounter> {
           onPressed: _saving ? null : _save,
           child: _saving
               ? const SizedBox(
-            width: 20,
-            height: 20,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ),
-          )
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
               : const Text('Save'),
         ),
       ],

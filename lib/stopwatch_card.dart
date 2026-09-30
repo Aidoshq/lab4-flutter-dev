@@ -23,16 +23,13 @@ class _StopwatchCardState extends State<StopwatchCard> {
   void _start() {
     if (_timer != null) return;
 
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-          (timer) {
-        if (!mounted) return;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) return;
 
-        setState(() {
-          _seconds++;
-        });
-      },
-    );
+      setState(() {
+        _seconds++;
+      });
+    });
   }
 
   void _stop() {
@@ -69,20 +66,11 @@ class _StopwatchCardState extends State<StopwatchCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FilledButton(
-                  onPressed: _start,
-                  child: const Text('Start'),
-                ),
+                FilledButton(onPressed: _start, child: const Text('Start')),
                 const SizedBox(width: 8),
-                OutlinedButton(
-                  onPressed: _stop,
-                  child: const Text('Stop'),
-                ),
+                OutlinedButton(onPressed: _stop, child: const Text('Stop')),
                 const SizedBox(width: 8),
-                OutlinedButton(
-                  onPressed: _reset,
-                  child: const Text('Reset'),
-                ),
+                OutlinedButton(onPressed: _reset, child: const Text('Reset')),
               ],
             ),
           ],

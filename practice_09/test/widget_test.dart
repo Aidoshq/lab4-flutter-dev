@@ -1,30 +1,44 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:practice_09/main.dart';
+import 'package:practice_09/models/book.dart';
+import 'package:practice_09/models/cart.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const Shell());
+  test('Cart adds books and calculates total', () {
+    final cart = Cart();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(cart.count, 0);
+    expect(cart.total, 0);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Add two books
+    expect(cart.add(books[0]), true);
+    expect(cart.add(books[1]), true);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(cart.count, 2);
+    expect(cart.total, 8700);
+
+    // Duplicate books are not allowed
+    expect(cart.add(books[0]), false);
+    expect(cart.count, 2);
+
+    // Increase quantity
+    cart.increment(books[0]);
+
+    expect(cart.qtyOf(books[0]), 2);
+    expect(cart.total, 14200);
+
+    // Remove one book
+    cart.remove(books[1]);
+
+    expect(cart.count, 1);
+    expect(cart.total, 11000);
+
+    // Clear cart
+    cart.clear();
+
+    expect(cart.count, 0);
+    expect(cart.total, 0);
+
+    cart.dispose();
   });
 }
